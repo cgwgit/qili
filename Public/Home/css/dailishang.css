@@ -1,0 +1,357 @@
+@charset "utf-8";
+/* CSS Document */
+html,body,h1,h2,h3,h4,h5,h6,p,dl,dt,dd,ol,ul,li,form,table,tr,th,td {margin:0;padding:0}
+body,input,textarea,select{font:12px/1.5 "Hiragino Sans GB","Microsoft YaHei",simsun,Tahoma,
+Arial,Helvetica,Geneva,sans-serif; color:#555; -webkit-font-size-adjust: none;}
+a{text-decoration:none; outline:none; -webkit-tap-highlight-color: transparent;blr:expression(this.onFocus=this.blur()); cursor:pointer;}
+input, textarea, select, button {outline: none;font-size:12px;-webkit-appearance:none;font-weight:normal;font-family:inherit}
+table {border-collapse:collapse;border-spacing:0;width:100%;}
+em,i,b {font-style: normal;font-weight: normal}
+ul{list-style:none;}
+img {border:none;vertical-align:middle;-ms-interpolation-mode:bicubic;}
+input,textarea,select{resize:none;-webkit-tap-highlight-color: transparent;}
+input:focus{
+　　border:0;
+	outline: none;
+　　}
+label{outline: none;}
+#body{background: #f7f7f7;}
+.fl{float: left;}
+a img{border:0;}
+.clear{clear: both;}
+.fl{float: left;}
+.fr{float: right;}
+.insurance_body{
+	background: url(../images/i_bodybg_01.png) center top repeat;
+}
+.insurance_main{
+	width: 100%;
+	min-width: 700px;
+	height: 470px;
+	z-index: 1;
+	position: fixed;
+	top: 20%;
+	background: url(../images/i_bg_login.png) repeat-x;
+	background-position:center top;
+}
+.pingan_main{
+	width: 700px;
+	height: 470px;
+	z-index: 2;
+	margin: 0 auto;
+	background: url(../images/i_bg_11.png) center 116px no-repeat;	
+}
+.pingan_main .pingan_logo{
+	display: block;
+	margin: 0 auto;
+	width: 478px;
+}
+.pingan_main .form_pingan{
+	width: 476px;
+	height: 337px;
+	margin: 10px auto;
+	border: 1px solid #b7b6b6;
+	border-radius: 8px;
+	background: url(../images/i_bodybg_01.png) center top repeat;
+}
+.pingan_main .form_pingan h2{
+	font-size: 26px;
+	color: #3c6ca0;
+	font-weight: normal;
+	line-height: 85px;
+	text-align: center;
+	margin: 0 auto;
+}
+.pingan_main .form_pingan .form_pinan_main{
+	padding-left: 101px;
+	background: url(../images/i_suo_11.png) 2px center no-repeat;
+}
+.pingan_main .form_pingan .form_pinan_main .item_f{
+	width: 350px;
+	height: 30px;
+	margin-bottom: 23px;
+	line-height: 30px;
+	position: relative;	
+}
+.pingan_main .form_pingan .form_pinan_main .item_f label{
+	float: left;
+	width: 77px;
+	margin-right: 10px;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	color: #000;
+	text-align: right;
+	box-sizing: border-box;
+}
+.pingan_main .form_pingan .form_pinan_main .item_f .input_f{
+	float: left;
+	width: 215px;
+	display: inline-block;
+	border: 1px solid #b2b2b2;
+	background: #FFF;
+	height: 28px;
+	line-height: 28px;
+	padding-left: 5px;
+	border-radius: 2px;
+	font-size: 16px;
+	color: #000;
+}
+.pingan_main .form_pingan .form_pinan_main .item_f .input_f:hover, .input_code:hover, .personal-main .form-personal input:hover{
+	border: 0;
+	border: 1px solid #0093dd;
+}
+.input_code{
+	float: left;
+	width: 90px;
+	border: 1px solid #b2b2b2;
+	background: #FFF;
+	line-height: 28px;
+	padding-left: 5px;
+	border-radius: 2px;
+	height: 28px;
+	font-size: 20px;
+	text-align: center;
+}
+.pingan_main .form_pingan .form_pinan_main .item_f .varcode_img{
+	float: left;
+	margin-left: 5px;
+	margin-top:5px;
+}
+.pingan_main .form_pingan .form_pinan_main .item_f .refresh{
+	font-size: 16px;
+	color: #0000cc;
+	line-height: 30px;
+	display: block;
+	margin-left: 5px;
+	text-decoration: underline;
+}
+.pingan_main .form_pingan .btn_login{
+	width: 226px;
+	height: 45px;
+	display: block;
+	border: 0;
+	line-height: 45px;
+	border: 1px solid #0E9AE3;
+	background: #0E9AE3;
+	margin: 30px 0 0 142px;
+	font-size: 18px;
+	font-weight: normal;
+	color: #fffefe;
+	text-align: center;
+	cursor: pointer;
+}
+.pingan_main .form_pingan .btn_login:hover{background: #1aa9f4;}
+.pingan_main .form_pingan .tips{
+	font-size: 14px;
+	color: #ffb042;
+	line-height: 30px;
+	position: absolute;
+	right: 0;
+}
+.banquan{
+	font-size: 14px;
+	color: #000000;
+	line-height: 30px;
+	text-align: center;
+	margin-top: 40px;
+}
+/*小额快修管理系统**/
+.menage_body_bg{
+	background: url(../images/i_bg2_01.png) center top repeat;
+}
+.menage_body{
+	width: 100%;
+	min-width: 1100px;
+	margin: 0 auto;
+	position: fixed;
+	top: 20%;)
+}
+.menage_main_title{
+	width: 754px;
+	z-index: 2;
+	margin: 0 auto;
+}
+.login-modern{
+	width: 100%;
+	min-width: 754px;
+	height: 237px;
+	background: url(../images/i_bg_2_07.png) center top repeat-x;
+}
+.login-modern dl{
+	width: 754px;
+	margin: 0 auto;
+	margin: 0 auto;
+}
+.login-modern dl dt{
+	width: 200px;
+	padding-top: 77px;
+	float: left;
+	text-align: center;
+}
+.login-modern dl dt img{display: block;}
+.login-modern dl dd{
+	width: 500px;
+	height: 167px;
+	float: left;
+	padding-top: 67px;
+	position: relative;
+}
+.login-modern dl dd .ui-form-item{
+	width: 375px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+	color: #000000;
+	margin-bottom: 18px;
+}
+.login-modern dl dd .ui-form-item label{
+	width: 100px;
+	float: left;
+	font-family: simsun;
+	font-size: 16px;
+	color: #fff;
+	text-align: justify;
+	
+}
+.ui-form-item .input-main{
+	width: 273px;
+	height: 40px;
+	float: left;
+	background: #FFF;
+	border-radius: 3px;
+}
+.ui-form-item .input-main span{
+	padding: 0 5px 0 10px;
+	display: blcok;
+	float: left;
+}
+.ui-input{
+	border: 0;
+	/*padding-top:3px;*/
+	line-height: 26px;
+	width: 220px;	
+	font-size: 14px;
+}
+.ui-button{
+	position: absolute;
+	right: 10px;
+	top: 67px;
+	border: 0;
+	width: 88px;
+	height: 97px;
+	cursor: pointer;
+	background: url(../images/i_login_10.png) center top no-repeat;
+}
+/**个人登录 **/
+.personal_body{
+	background: url(../images/bg_geren_login_01.png) center top repeat;
+}
+.personal-head{
+	width: 870px;
+	margin: 0 auto;
+	background: url(../images/i_bg_head_03.png) center top no-repeat;
+}
+.personal-head .logo{
+	width: 850px;
+	height: 180px;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+.personal-head .logo img{
+	width: 370px;
+	height: auto;
+	margin-left: 240px;
+	margin-top: 90px;
+}
+.personal-main{
+	width: 870px;
+	margin: 0 auto;
+	margin-top: 1%;
+}
+.personal-main .form-personal{
+	width: 830px;
+	height: 50px;
+	line-height: 50px;
+	background: #65b0ce;
+	border: 1px solid #7ab8cf;
+	border-radius: 8px;
+	margin: 0 auto;
+	margin-top: 6%;
+}
+.personal-main .form-personal span{
+	width: 145px;
+	color: #ffffff;
+	text-align: right;
+	font-size: 18px;
+	color: #fffff;
+	margin-left: 40px;
+}
+.personal-main .form-personal input{
+	width: 200px;
+	padding-left: 5px;
+	font-size: 18px;
+	color: #818181;
+	margin-right: 50px;
+	height: 30px;
+	line-height: 30px;
+	background: #ffffff;
+	border: 1px solid #a3a7a8;
+}
+.welcome-title{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+.i_footer{
+	width: 100%;
+	min-width: 870px;
+	height: 120px;
+	padding-top: 16px;
+	position: fixed;
+	bottom: 0;
+	font-size: 12px;
+	color: #ffffff;
+	text-align: center;
+	background: url(../images/i_bg_footer_07.png) center top no-repeat;
+}
+.form-personal-sub{
+	width: 438px;
+	height: 50px;
+	overflow: hidden;
+	margin: 0 auto;
+	margin-top: 5%;
+}
+.form-personal-sub ul{
+	width: 540px;
+	margin: 0 auto;
+}
+.form-personal-sub ul li{
+	float: left;
+	display: block;
+	width: 173px;
+	height: 50px;	
+	margin-right: 88px;
+}
+.form-personal-sub ul li input{
+	height: 50px;
+	line-height: 50px;
+	border: 0;
+	display: block;
+	width: 173px;
+	cursor: pointer;
+	border-radius: 8px;
+}
+.user-login{
+	background: #f7931d url(../images/i-user-login_15.png) center top no-repeat;
+}
+.user-login:hover{
+	background: #f4a344 url(../images/i-user-login_15.png) center top no-repeat;
+}
+.forget-pass{
+	background:#399dcf url(../images/i-forget_12.png) center top no-repeat;
+}
+.forget-pass:hover{
+	background: #45a7d8 url(../images/i-forget_12.png) center top no-repeat;
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/html5shiv.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/page.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+		<title>订单列表</title>
+	</head>
+
+	<body>
+		<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span>订单列表
+			<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="Hui-iconfont">&#xe68f;</i></a>
+		</nav>
+		<div class="page-container">
+		<form method="post" id="myFormId" action="">
+			<div class="text-c">
+	            日期：<input  class="input-text Wdate" type="text" onfocus="WdatePicker({skin:'whyGreen',Date:'%y-%M-%d'})" name="date"
+                   <if condition="$huixian['date'] != NULL">
+                   value="<?php echo date('Y-m-d',  $huixian['date']) ?>"
+                   <else />
+                   value=""
+                   </if>
+	             style="width:150px;"/>
+				申请人：<input type="text" name="shenqingren" id="" value="<?php echo $huixian['shenqingren'] ?>"placeholder="申请人" style="width:150px" class="input-text">
+				部门：<span class="select-box"style=" width:150px;height: 31px">
+						<select name="dept" class="select">
+						<if condition="$huixian['dept'] != NULL">
+						  <option value="<?php echo $huixian['dept'] ?>"><?php echo $huixian['dept'] ?></option>
+						<else />
+						  <option value="0">请选择部门</option>
+						 </if>
+						<foreach name="dept" item="v" >
+							<option value="<?php echo $v['bumenming'] ?>"><?php echo $v['bumenming'] ?></option>
+						</foreach>
+						</select>
+						</span>
+				开通版本：<span class="select-box"style=" width:150px;height: 31px">
+						<select name="banben" class="select">
+						<if condition="$huixian['banben'] != NULL">
+						  <option value="<?php echo $huixian['banben'] ?>"><?php echo $huixian['banben'] ?></option>
+						<else />
+						<option value="0">请选择开通版本</option>
+						</if>
+						<foreach name="banben" item="v" >
+							<option value="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></option>
+						</foreach>
+						</select>
+						</span>
+				<button name="" id="tijiao" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+			</div>
+		</form>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" id="btndel" class="btn btn-danger radius" onclick="activity_dels(this)">
+			<i class="Hui-iconfont" id="btndel">&#xe6e2;</i> 批量删除</a>
+				<a class="btn btn-primary radius" onclick="article_add('添加订单','__CONTROLLER__/addInfo','800','500')" href="javascript:;">
+					<i class="Hui-iconfont">&#xe600;</i> 添加订单</a> 
+				<a id = "excel" class="btn btn-primary radius" href="javascript:void(0)">
+					 导出表格</a></span> 
+				<span class="r">共有数据：<strong><?php echo $count ?></strong> 条</span>
+			</div>
+			<div class="mt-20">
+				<table class="table table-border table-bordered table-bg table-hover table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="25"><input type="checkbox" name="" value=""></th>
+							<th width="80">ID</th>
+							<th width="120">企业名称</th>
+							<th width="120">产品名称</th>
+							<th width="120">申请人</th>
+							<th width="120">实收金额</th>
+							<th width="120">申请日期</th>
+							<th width="120">开通状态</th>
+							<th width="120">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					  <foreach name="info" item="v">
+						<tr class="text-c">
+							<td><input type="checkbox" id="aid" name="did" value="<?php echo $v['qid'] ?>" /></td>
+							<td><?php echo $v['qid'] ?></td>
+							<td ><span style="cursor:pointer" class="text-primary" onClick="article_detail('查看','__CONTROLLER__/detail/id/<?php echo $v['qid'] ?>','800','500')" title="查看"><?php echo $v['qname']?></span></td>
+							<td><?php echo $v['banben'] ?></td>
+							<td><?php echo $v['shenqingren'] ?></td>
+							<td><?php echo $v['realmomey'] ?></td>
+							<td><?php echo date('Y-m-d',$v['date']) ?></td>
+							<td>
+                               <if condition="$v['status'] eq 1 ">
+							     提单
+							    <else />
+							    开通
+							    </if>
+							<td class="td-manage">
+								<!-- <a style="text-decoration:none" class="ml-5" onClick="picture_edit('图库编辑','picture-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> -->
+								<a title="编辑" href="__CONTROLLER__/editInfo/id/<?php echo $v['qid'] ?>/p/<?php echo $_GET['p'] ?>" class="ml-10" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6df;</i>
+								</a>
+								<a title="删除" href="javascript:;" onclick="activity_del(this,'<?php echo $v['qid'] ?>')" class="ml-10" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6e2;</i>
+								</a>
+							</td>
+						</tr>
+					  </foreach>
+					</tbody>
+				</table>
+				<div id="page" class="page" style="text-align: right;">
+					<!-- <a class="cur">1</a>
+					<a href="javascript:void(0);" onclick="$.pageSkip(2,this);">2</a>
+					<a href="javascript:void(0);" onclick="$.pageSkip(3,this);">3</a>
+					<span>...</span>
+					<a href="javascript:void(0);" onclick="$.pageSkip(179,this);">尾页</a>
+					<a href="javascript:void(0);" onclick="$.pageSkip(2,this);">下一页</a>
+					<span>共9页</span>
+					<span>跳转到</span>
+					<input id="pageNumber" type="text" class="pn" name="pageNumber" value="1">
+					<span>页</span>
+					<input type="submit" class="sure" value="确定"> -->
+					<?php echo $page ?>
+				</div>
+		<!-- 		<div class="pagination ue-clear">
+				<div id="page" class="page">
+						<?php echo $page ?>
+			     </div>
+            </div> -->
+			</div>
+		</div>
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/static/h-ui.admin/js/H-ui.admin.js"></script>
+		<!--/_footer 作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/laypage/1.2/laypage.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#tijiao").click(function(){
+					$("#myFormId").attr("action", "__CONTROLLER__/showList");
+					$("form").submit();
+				});
+				$("#excel").click(function(){
+				    var id = $(':checkbox:checked');    //jQuery对象,类数组的对象
+			        var ids = '';   //要求ids的形式是 1,2,3,4,5
+			        for(var i = 0;i < id.length;i++){
+			            ids = ids + id[i].value + ',';
+			        }
+		        //剔除右边的逗号
+		        ids = ids.substring(0,ids.length-1);
+					$("#myFormId").attr("action", "__CONTROLLER__/excel_out_page/ids/"+ids);
+					$("form").submit();
+				})
+			})
+		</script>
+		<script type="text/javascript">
+			/*活动-添加*/
+			function article_add(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
+			/*查看订单详情*/
+			function article_detail(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
+
+			/*活动-编辑*/
+			function activity_edit(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
+            /*活动-删除*/
+			function activity_del(obj, id) {
+				layer.confirm('确认要删除吗？', function(index) {
+					$.ajax({
+						type: 'get',
+						url: '__CONTROLLER__/delInfo',
+						data:{'aid':id},
+						dataType: 'json',
+						success: function(data) {
+							if(data.code == 1){
+							$(obj).parents("tr").remove();
+							layer.msg('已删除!', {
+								icon: 1,
+								time: 1000
+							});
+						}
+					},
+						error: function(data) {
+							console.log(data.msg);
+						},
+					});
+				});
+			}
+
+			//给删除按钮添加点击事件(批量删除)
+    	function activity_dels(obj) {
+        	layer.confirm('确认要删除吗？', function(index) {
+        		        //获取复选框的id值
+	        var id = $(':checkbox:checked');    //jQuery对象,类数组的对象
+	        var ids = '';   //要求ids的形式是 1,2,3,4,5
+	        for(var i = 0;i < id.length;i++){
+	            ids = ids + id[i].value + ',';
+	        }
+	        //剔除右边的逗号
+	        ids = ids.substring(0,ids.length-1);
+					$.ajax({
+						type: 'get',
+						url: '__CONTROLLER__/delInfo',
+						data:{'aid':ids},
+						dataType: 'json',
+						success: function(data) {
+							if(data.code == 1){
+								$(obj).parents("tr").remove();
+							layer.msg('已删除!', {
+								icon: 1,
+								time: 1000,
+							},function(){
+								window.location.href=window.location.href;
+							});
+						}
+					}
+					});
+				});
+    };
+		</script>
+	</body>
+
+</html>

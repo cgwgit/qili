@@ -1,0 +1,443 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class IndexController extends Controller {
+   //初始化，判断用户是否登录
+	// public function _initialize() {
+ //        if ($_SESSION['uname'] == NULL) {
+ //            $this->success('请先登陆', U('Manager/login'));
+ //            exit();
+ //        }
+ //     } 
+      //显示后台首页
+	public function index(){
+	   $this->display();
+	}
+  //显示详情信息
+  public function detail(){
+    $id = I('get.id');
+    $list = M('qiye')->alias('qiye')->join('tp_hetong on qiye.id=tp_hetong.qid')->where(array('qiye.id'=> $id))->find();
+    $this->assign('list', $list);
+    $this->display();
+  }
+	//显示列表
+	public function showList(){
+    $where = '2>1';
+    $post = I('post.');
+    if(!empty($post['date'])){
+      $where .= " AND `date` = '{$post['date']}'";
+    }
+    if(!empty($post['shenqingren'])){
+      $where .= " AND `shenqingren` = '{$post['shenqingren']}'";
+    }
+    if(!empty($post['dept'])){
+      $where .= " AND `dept` = '{$post['dept']}'";
+    }
+    if(!empty($post['leibie'])){
+      $where .= " AND `leibie` = '{$post['leibie']}'";
+    }
+    if(session('utype') == 2){
+      $where .= " AND `uid` =".session('uid');
+    }
+		 $model = M('qiye');
+     $count = $model->join('tp_hetong on tp_hetong.qid=tp_qiye.id')->where($where)->count();
+     $Page = new \Think\Page($count,10);
+     $Page -> setConfig('prev','上一页');
+     $Page -> setConfig('next','下一页');
+     $Page -> setConfig('first','首页');
+     $Page -> setConfig('last','末页');
+     $Page -> lastSuffix = false;  //将末页从数字的显示方式切换成汉字提示
+     $show = $Page->show();
+     $list = $model->alias('qiye')->join('tp_hetong on tp_hetong.qid=qiye.id')->where($where)->limit($Page->firstRow.','.$Page->listRows)->order('qiye.id desc')->select();
+  	 $this->assign('info', $list);
+  	 $this->assign('page', $show);
+  	 $this->display();
+}
+	//添加信息
+	public function addInfo(){
+		if(IS_AJAX){
+			$post = I('post.');
+			!empty($post['qname']) ? $name = trim($post['qname']) : $err = '请填写企业名称';
+			!empty($post['qaddr']) ? $qaddr = trim($post['qaddr']) : $err = '请填写企业地址';
+			!empty($post['yunying']) ? $yunying = trim($post['yunying']) : $err = '请填写运营人姓名';
+			preg_match("/^1[3578][0-9]{9}$/", $_POST['yunyingtel']) ? $yunyingtel = trim($post['yunyingtel']) : $err = '请填写运营人手机号';
+			!empty($post['weimeng']) ? $weimeng = trim($post['weimeng']) : $err = '请填写微盟用户名';
+      !empty($post['pwd']) ? $pwd = trim($post['pwd']) : $err = '请填写微盟密码';
+      !empty($post['qq']) ? $qq = trim($post['qq']) : $err = '请填写qq号码';
+      !empty($post['wechat']) ? $wechat = trim($post['wechat']) : $err = '请填写微信公众号';
+      !empty($post['wechatpwd']) ? $wechatpwd = trim($post['wechatpwd']) : $err = '请填写微信密码';
+      !empty($post['leibie']) ? $leibie = trim($post['leibie']) : $err = '请填写开通类别';
+      !empty($post['bianhao']) ? $bianhao = trim($post['bianhao']) : $err = '请填写合同编号';
+      !empty($post['banben']) ? $banben = trim($post['banben']) : $err = '请选择开通版本';
+      !empty($post['shenqingren']) ? $shenqingren = trim($post['shenqingren']) : $err = '请填写合同编号';
+      !empty($post['money']) ? $money = trim($post['money']) : $err = '请填写合同金额';
+      !empty($post['realmoney']) ? $realmoney = trim($post['realmoney']) : $err = '请填写合同真实金额';
+      !empty($post['nianxian']) ? $nianxian = trim($post['nianxian']) : $err = '请填写开通年限';
+      !empty($post['dept']) ? $dept = trim($post['dept']) : $err = '请选择所属部门';
+      !empty($post['jingli']) ? $jingli = trim($post['jingli']) : $err = '请选择所属部门经理';
+      !empty($post['laiyuan']) ? $laiyuan = trim($post['laiyuan']) : $err = '请选择客户来源';
+      if($err){
+      	echo json_encode(array('code' => 0,'msg' => $err));exit;
+      }
+      //企业表里的一些字段信息
+			$data = array(
+                  'uid' => session('uid'), 
+                  'qname' => $name, 
+                  'qaddr' => $qaddr, 
+                  'faren' => !empty($post['faren']) ? $post['faren'] : '', 
+                  'yunying' => $yunying,
+                  'yunyingtel' => $yunyingtel,
+                  'farentel' => !empty($post['farentel']) ? $post['farentel'] : '',
+                  'weimeng' => $weimeng,
+                  'weimengpwd' => $pwd,
+                  'qq' => $qq,
+                  'email' => !empty($post['email']) ? $post['email'] : '',
+                  'wechat' => $wechat,
+                  'wechatpwd' => $wechatpwd,
+                  'status' => !empty($post['status']) ? $post['status'] : '1',
+                  'leibie' => $leibie,
+                  'detail' => !empty($post['detail']) ? $post['detail'] : ''
+				);
+			  //添加内容到企业表
+			  $id = M('qiye')->add($data);
+			  if($id){
+            //合同表里的字段信息
+            $data1 = array(
+                      'qid' => $id,
+                      'bianhao' => $bianhao,
+                      'date' => !empty($post['date']) ? $post['date'] : '',
+                      'money' => $money,
+                      'realmoney' => $realmoney,
+                      'shenqingren' => $shenqingren,
+                      'banben' => $banben,
+                      'nianxian' => $nianxian,
+                      'daiyunyingdate' => !empty($post['daiyunyingdate']) ? $post['daiyunyingdate'] : '',
+                      'dept' => $dept,
+                      'jingli' => $jingli,
+                      'laiyuan' => $laiyuan,
+                      'addtime' => time()
+              );
+			  	$rst = M('hetong')->add($data1);
+			  	if($rst){
+			  		echo json_encode(array('code' => 1,'msg' => '添加成功'));exit;
+			  	}else{
+            echo json_encode(array('code' => 0,'msg' => '添加失败'));exit;
+          }
+			  }else{
+			  	 echo json_encode(array('code' => 0,'msg' => '添加失败'));exit;
+			  }
+		}else{
+			$this->display();
+		}
+		
+	}
+	//编辑活动
+	public function editInfo(){
+		if(IS_AJAX){
+      $post = I('post.');
+      !empty($post['qname']) ? $name = trim($post['qname']) : $err = '请填写企业名称';
+      !empty($post['qaddr']) ? $qaddr = trim($post['qaddr']) : $err = '请填写企业地址';
+      !empty($post['yunying']) ? $yunying = trim($post['yunying']) : $err = '请填写运营人姓名';
+      !empty($post['yunyingtel']) ? $yunyingtel = trim($post['yunyingtel']) : $err = '请填写运营人手机号';
+      !empty($post['weimeng']) ? $weimeng = trim($post['weimeng']) : $err = '请填写微盟用户名';
+      !empty($post['pwd']) ? $pwd = trim($post['pwd']) : $err = '请填写微盟密码';
+      !empty($post['qq']) ? $qq = trim($post['qq']) : $err = '请填写qq号码';
+      !empty($post['wechat']) ? $wechat = trim($post['wechat']) : $err = '请填写微信公众号';
+      !empty($post['wechatpwd']) ? $wechatpwd = trim($post['wechatpwd']) : $err = '请填写微信密码';
+      !empty($post['leibie']) ? $leibie = trim($post['leibie']) : $err = '请填写开通类别';
+      !empty($post['bianhao']) ? $bianhao = trim($post['bianhao']) : $err = '请填写合同编号';
+      !empty($post['banben']) ? $banben = trim($post['banben']) : $err = '请选择开通版本';
+      !empty($post['shenqingren']) ? $shenqingren = trim($post['shenqingren']) : $err = '请填写合同编号';
+      !empty($post['money']) ? $money = trim($post['money']) : $err = '请填写合同金额';
+      !empty($post['realmoney']) ? $realmoney = trim($post['realmoney']) : $err = '请填写合同真实金额';
+      !empty($post['nianxian']) ? $nianxian = trim($post['nianxian']) : $err = '请填写开通年限';
+      !empty($post['dept']) ? $dept = trim($post['dept']) : $err = '请选择所属部门';
+      !empty($post['jingli']) ? $jingli = trim($post['jingli']) : $err = '请选择所属部门经理';
+      !empty($post['laiyuan']) ? $laiyuan = trim($post['laiyuan']) : $err = '请选择客户来源';
+      if($err){
+        echo json_encode(array('code' => 0,'msg' => $err));exit;
+      }
+      //企业表里的一些字段信息
+      $data = array(
+                  'qname' => $name, 
+                  'qaddr' => $qaddr, 
+                  'faren' => !empty($post['faren']) ? $post['faren'] : '', 
+                  'yunying' => $yunying,
+                  'yunyingtel' => $yunyingtel,
+                  'farentel' => !empty($post['farentel']) ? $post['farentel'] : '',
+                  'weimeng' => $weimeng,
+                  'weimengpwd' => $pwd,
+                  'qq' => $qq,
+                  'email' => !empty($post['email']) ? $post['email'] : '',
+                  'wechat' => $wechat,
+                  'wechatpwd' => $wechatpwd,
+                  'status' => !empty($post['status']) ? $post['status'] : '1',
+                  'leibie' => $leibie,
+                  'detail' => !empty($post['detail']) ? $post['detail'] : ''
+        );
+        //添加内容到企业表
+        $rst = M('qiye')->where(array('id' => $post['id']))->save($data);
+        if($rst){
+            //合同表里的字段信息
+            $data1 = array(
+                      'bianhao' => $bianhao,
+                      'date' => !empty($post['date']) ? $post['date'] : '',
+                      'money' => $money,
+                      'realmoney' => $realmoney,
+                      'shenqingren' => $shenqingren,
+                      'banben' => $banben,
+                      'nianxian' => $nianxian,
+                      'daiyunyingdate' => !empty($post['daiyunyingdate']) ? $post['daiyunyingdate'] : '',
+                      'dept' => $dept,
+                      'jingli' => $jingli,
+                      'laiyuan' => $laiyuan,
+                      'updatetime' => time()
+              );
+          $rst1 = M('hetong')->where(array('qid' => $post['id']))->save($data1);
+          if($rst1){
+            echo json_encode(array('code' => 1,'msg' => '编辑成功'));exit;
+          }else{
+            echo json_encode(array('code' => 0,'msg' => '编辑失败'));exit;
+          }
+        }else{
+           echo json_encode(array('code' => 0,'msg' => '编辑失败'));exit;
+        }
+    }else{
+     $id = I('get.id');
+     $list = M('qiye')->alias('qiye')->join('tp_hetong on qiye.id=tp_hetong.qid')->where(array('qiye.id'=> $id))->find();
+     $this->assign('list', $list);
+     $this->display();
+    }
+	}
+	//开启活动
+	public function startAction(){
+		   $aid = $_GET['aid'];
+           $actions = M('action')->select();
+           $ac = array(
+               'id' => $aid,
+               'status' => '1'
+           	);
+           $rst = M('action')->save($ac);
+           if($rst){
+           	echo json_encode(array('code' => 1));exit;
+           }
+	}
+	//删除活动
+	public function delInfo(){
+		  $aid = I('get.id');
+			//删除多个活动
+			$where['id'] = array('in', $aid);
+			$result = M('qiye')->where($where)->delete();
+      if($result){
+        $result1 = M('hetong')->where(array('qid' => array('in',$aid)))->delete();
+        if($result1){
+           echo json_encode(array('code' => 1));exit;
+        }else{
+           echo json_encode(array('code' => 0));exit;
+        }
+      }else{
+         echo json_encode(array('code' => 0));exit;
+      }
+  }
+    //把一页一页的商品信息导出到excel里边
+    public function excel_out_page(){
+        //通过excel导出当前页的商品信息
+        //设置当前页码
+        $where = '2>1';
+        $nowpage = !empty($_GET['page'])?$_GET['page']:1;//当前页码
+        $per = 10;
+        if(session('utype') == 2){
+         $where .= " AND `uid` =".session('uid');
+        }
+        //根据页码获得数据信息出来
+        $list = M('qiye')->alias('qiye')->join('tp_hetong on tp_hetong.qid=qiye.id')->where($where)->limit(($nowpage-1)*$per,$per)->order('qiye.id desc')->select();
+
+        //设置Excel
+        require_once './Common/Plugin/Excel/PHPExcel.php';
+        $objPHPExcel = new \PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+                             ->setLastModifiedBy("Maarten Balliauw")
+                             ->setTitle("PHPExcel Test Document")
+                             ->setSubject("PHPExcel Test Document")
+                             ->setDescription("Test document for PHPExcel, generated using PHP classes.")
+                             ->setKeywords("office PHPExcel php")
+                             ->setCategory("Test result file");
+
+        //设置标题
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', '记录id')
+            ->setCellValue('B1', '合同编号')
+            ->setCellValue('C1', '申请日期')
+            ->setCellValue('D1', '合同金额')
+            ->setCellValue('E1', '实收金额')
+            ->setCellValue('F1', '申请人')
+            ->setCellValue('G1', '申请版本')
+            ->setCellValue('H1', '开通年限')
+            ->setCellValue('I1', '代运营周期')
+            ->setCellValue('J1', '所属部门')
+            ->setCellValue('K1', '部门经理')
+            ->setCellValue('L1', '客户来源')
+            ->setCellValue('M1', '企业名称')
+            ->setCellValue('N1', '联系地址')
+            ->setCellValue('O1', '法人')
+            ->setCellValue('P1', '法人手机号')
+            ->setCellValue('Q1', '运营人')
+            ->setCellValue('R1', '运营人手机号')
+            ->setCellValue('S1', '微盟用户名')
+            ->setCellValue('T1', '密码')
+            ->setCellValue('U1', 'QQ')
+            ->setCellValue('V1', '邮箱')
+            ->setCellValue('W1', '微信公众号')
+            ->setCellValue('X1', '公众号密码')
+            ->setCellValue('Y1', '开通状态')
+            ->setCellValue('Z1', '开通类别')
+            ->setCellValue('AA1', '客户特殊要求');
+        //设置具体内容
+        foreach($list as $k => $v){
+            $i = $k+2;
+            $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A'.$i, $v['id'])
+                ->setCellValue('B'.$i, $v['bianhao'])
+                ->setCellValue('C'.$i, $v['date'])
+                ->setCellValue('D'.$i, $v['money'])
+                ->setCellValue('E'.$i, $v['realmoney'])
+                ->setCellValue('F'.$i, $v['shengqingren'])
+                ->setCellValue('G'.$i, $v['banben'])
+                ->setCellValue('H'.$i, $v['nianxian'])
+                ->setCellValue('I'.$i, $v['daiyunyingdate'])
+                ->setCellValue('J'.$i, $v['dept'])
+                ->setCellValue('K'.$i, $v['jingli'])
+                ->setCellValue('L'.$i, $v['laiyuan'])
+                ->setCellValue('M'.$i, $v['qname'])
+                ->setCellValue('N'.$i, $v['qaddr'])
+                ->setCellValue('O'.$i, $v['faren'])
+                ->setCellValue('P'.$i, $v['fatentel'])
+                ->setCellValue('Q'.$i, $v['yunying'])
+                ->setCellValue('R'.$i, $v['yunyingtel'])
+                ->setCellValue('S'.$i, $v['weimeng'])
+                ->setCellValue('T'.$i, $v['weimengpwd'])
+                ->setCellValue('U'.$i, $v['qq'])
+                ->setCellValue('V'.$i, $v['email'])
+                ->setCellValue('W'.$i, $v['wechat'])
+                ->setCellValue('X'.$i, $v['wechatpwd'])
+                ->setCellValue('Y'.$i, $v['status'])
+                ->setCellValue('Z'.$i, $v['leibie'])
+                ->setCellValue('AA'.$i, $v['detail']);
+        }
+      $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+      //设置http协议，下载支持
+      header("Content-Type:application/force-download");
+      //设置下载的内容是excel
+      header("Content-Type:application/vnd.ms-execl");
+      //把下载的内容设置为8机制流内容
+      header("Content-Type:application/octet-stream");
+      //设置http协议，下载支持
+      header("Content-Type:application/download");
+      //下载excel名字的定义
+      header('Content-Disposition:attachment;filename="商品信息.xlsx"');
+      //内容设置为二进制形式传输
+      header("Content-Transfer-Encoding:binary");
+      //把excel文件直接提供为下载形式
+      $objWriter->save('php://output');
+    }
+
+    //给选中的商品信息生成excel文件
+    function makeExcel2(){
+        $aid = I('get.id');
+        //根据条件获得数据信息出来
+        $list = M('qiye')->alias('qiye')->join('tp_hetong on tp_hetong.qid=qiye.id')->where(array('qid' => array('in',$aid)))->order('qiye.id desc')->select();
+        //设置Excel
+        require_once './Common/Plugin/Excel/PHPExcel.php';
+        $objPHPExcel = new \PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+                             ->setLastModifiedBy("Maarten Balliauw")
+                             ->setTitle("PHPExcel Test Document")
+                             ->setSubject("PHPExcel Test Document")
+                             ->setDescription("Test document for PHPExcel, generated using PHP classes.")
+                             ->setKeywords("office PHPExcel php")
+                             ->setCategory("Test result file");
+
+             //设置标题
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', '记录id')
+            ->setCellValue('B1', '合同编号')
+            ->setCellValue('C1', '申请日期')
+            ->setCellValue('D1', '合同金额')
+            ->setCellValue('E1', '实收金额')
+            ->setCellValue('F1', '申请人')
+            ->setCellValue('G1', '申请版本')
+            ->setCellValue('H1', '开通年限')
+            ->setCellValue('I1', '代运营周期')
+            ->setCellValue('J1', '所属部门')
+            ->setCellValue('K1', '部门经理')
+            ->setCellValue('L1', '客户来源')
+            ->setCellValue('M1', '企业名称')
+            ->setCellValue('N1', '联系地址')
+            ->setCellValue('O1', '法人')
+            ->setCellValue('P1', '法人手机号')
+            ->setCellValue('Q1', '运营人')
+            ->setCellValue('R1', '运营人手机号')
+            ->setCellValue('S1', '微盟用户名')
+            ->setCellValue('T1', '密码')
+            ->setCellValue('U1', 'QQ')
+            ->setCellValue('V1', '邮箱')
+            ->setCellValue('W1', '微信公众号')
+            ->setCellValue('X1', '公众号密码')
+            ->setCellValue('Y1', '开通状态')
+            ->setCellValue('Z1', '开通类别')
+            ->setCellValue('AA1', '客户特殊要求');
+        //设置具体内容
+        foreach($list as $k => $v){
+            $i = $k+2;
+            $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A'.$i, $v['id'])
+                ->setCellValue('B'.$i, $v['bianhao'])
+                ->setCellValue('C'.$i, $v['date'])
+                ->setCellValue('D'.$i, $v['money'])
+                ->setCellValue('E'.$i, $v['realmoney'])
+                ->setCellValue('F'.$i, $v['shengqingren'])
+                ->setCellValue('G'.$i, $v['banben'])
+                ->setCellValue('H'.$i, $v['nianxian'])
+                ->setCellValue('I'.$i, $v['daiyunyingdate'])
+                ->setCellValue('J'.$i, $v['dept'])
+                ->setCellValue('K'.$i, $v['jingli'])
+                ->setCellValue('L'.$i, $v['laiyuan'])
+                ->setCellValue('M'.$i, $v['qname'])
+                ->setCellValue('N'.$i, $v['qaddr'])
+                ->setCellValue('O'.$i, $v['faren'])
+                ->setCellValue('P'.$i, $v['fatentel'])
+                ->setCellValue('Q'.$i, $v['yunying'])
+                ->setCellValue('R'.$i, $v['yunyingtel'])
+                ->setCellValue('S'.$i, $v['weimeng'])
+                ->setCellValue('T'.$i, $v['weimengpwd'])
+                ->setCellValue('U'.$i, $v['qq'])
+                ->setCellValue('V'.$i, $v['email'])
+                ->setCellValue('W'.$i, $v['wechat'])
+                ->setCellValue('X'.$i, $v['wechatpwd'])
+                ->setCellValue('Y'.$i, $v['status'])
+                ->setCellValue('Z'.$i, $v['leibie'])
+                ->setCellValue('AA'.$i, $v['detail']);
+        }
+      $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+      //设置http协议，下载支持
+      header("Content-Type:application/force-download");
+      //设置下载的内容是excel
+      header("Content-Type:application/vnd.ms-execl");
+      //把下载的内容设置为8机制流内容
+      header("Content-Type:application/octet-stream");
+      //设置http协议，下载支持
+      header("Content-Type:application/download");
+      //下载excel名字的定义
+      header('Content-Disposition:attachment;filename="商品信息-选中.xlsx"');
+      //内容设置为二进制形式传输
+      header("Content-Transfer-Encoding:binary");
+      //把excel文件直接提供为下载形式
+      $objWriter->save('php://output');
+    }
+}

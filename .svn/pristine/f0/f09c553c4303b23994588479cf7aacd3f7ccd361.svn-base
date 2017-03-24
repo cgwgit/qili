@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+		<title>幸运数字活动后台管理系统</title>
+		<link type="text/css" rel="stylesheet" href="css/dailishang.css" />
+	</head>
+
+	<body class="insurance_body">
+		<div class="insurance_main">
+			<div class="pingan_main">
+				<img src="images/admin_logo2.png" alt="启力订单管理系统" class="pingan_logo" />
+				<div class="form_pingan">
+					<h2>后台管理系统</h2>
+					<form name="" id="">
+						<div class="form_pinan_main">
+							<div class="item_f">
+								<label>用户名：</label>
+								<input type="text" name="user_name" id="" value="" class="input_f" />
+								<em class="tips">*必填</em>
+							</div>
+							<div class="item_f">
+								<label>密码：</label>
+								<input type="password" name="user_name" id="" value="" class="input_f" />
+								<em class="tips">*必填</em>
+							</div>
+							<div class="item_f">
+							</div>
+						</div>
+						<a href="index.html"><input type="button" class="btn_login" value="登&nbsp;&nbsp;&nbsp;&nbsp;录" /></a>
+					</form>
+				</div>
+				<p class="banquan">版权所有：启力互联网络科技有限公司 Onesoft © 2017 All Rights Reserved</p>
+			</div>
+		</div>
+	</body>
+
+</html>

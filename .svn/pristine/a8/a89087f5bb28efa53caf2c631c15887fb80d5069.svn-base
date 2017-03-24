@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>启力订单管理系统</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery-weui.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/lib/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/public.css">
+	</head>
+
+	<body>
+		<div class="ql-login-title">
+			启力订单管理系统登录
+		</div>
+		<form name="form" id="form" method="post">
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">用户名:</label></div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" type="text" name="name" placeholder="请输入用户名">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">密&nbsp;码:</label></div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" type="password" name="pwd" placeholder="请输入密码">
+					</div>
+				</div>
+			</div>
+			<a href="javascript:;" class="weui-btn weui-btn_primary" style="margin-top: 30px;width: 90%;" id="submit">确定</a>
+		</form>
+		<script src="__PUBLIC__/Admin/lib/jquery-2.1.4.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Home/lib/layer/2.4/layer.js"></script>
+		<script src="__PUBLIC__/Admin/js/jquery-weui.js"></script>
+	</body>
+   <script type="text/javascript">
+	  $(function(){
+		$("#submit").click(function(){
+		$.ajax({
+			url: '__CONTROLLER__/login',
+			type: 'post',
+			dataType: 'json',
+			data: $("#form").serialize(),
+			success: function(data){
+					if(data.code == 1){
+						// layer.msg(data.msg,{icon:1,time:1000},function(){
+						    $.toast("登录成功");
+							window.location.href="__MODULE__/Index/index";
+					// }); 
+					}else if(data.code == 0){
+						layer.msg(data.msg,{icon:2,time:1000});
+					}
+					}
+		});
+	});
+	})
+</script>
+</html>

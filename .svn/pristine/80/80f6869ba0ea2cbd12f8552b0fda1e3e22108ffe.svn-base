@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>编辑订单</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery-weui.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/lib/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/public.css">
+	</head>
+
+	<body>
+		<form class="form form-horizontal" id="form-article-add" method="post" action="__CONTROLLER__/editInfo" onsubmit="return false">
+			    <input type="hidden" name="qid" value="<?php echo $list['qid'] ?>"></input>
+		<div class="weui-cells__title">产品开通申请表</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">合同编号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['bianhao'] ?>" placeholder="请输入合同编号" name="bianhao">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label for="" class="weui-label">申请日期</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="date" value="<?php echo date('Y-m-d',$list['date'])?>" name="date">
+			</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">合同金额</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入合同金额" value="<?php echo $list['money'] ?>" name="money">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">实收金额</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入实收金额" value="<?php echo $list['realmomey'] ?>" name="realmoney">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入申请人" name="shenqingren" value="<?php echo $list['shenqingren'] ?>" >
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">申请版本</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="banben">
+						<foreach name="banben" item="v" >
+							<option value="<?php echo $v['name'] ?>"<if condition="$v['name'] eq $list['banben']">selected="selected" </if>><?php echo $v['name'] ?></option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通年限</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入开通年限" value="<?php echo $list['nianxian'] ?>" name="nianxian">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">代运营周期</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入代运营周期"  value="<?php echo $list['daiyunyingdate'] ?>" name="daiyunyingdate">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">所属部门</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="dept">
+					  <foreach name="dept" item="v" >
+						<option value="<?php echo $v['bumenming'] ?>" <if condition="$v['bumenming'] eq $list['dept']">selected="selected" </if>><?php echo $v['bumenming'] ?>
+						</option>
+					</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">部门经理</label></div>
+				<div class="weui-cell__bd">
+					<select name="jingli" class="weui-select" >
+						<foreach name="dept" item="v" >
+								<option value="<?php echo $v['jingli'] ?>" <if condition="$v['jingli'] eq $list['jingli']">selected="selected" </if>><?php echo $v['jingli'] ?></option>
+						</foreach>
+						</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">客户来源</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="laiyuan">
+						   <option value="1" <if condition="$list['laiyuan'] eq 1 ">selected="selected" </if>>在线咨询</option>
+							<option value="2" <if condition="$list['laiyuan'] eq 2 ">selected="selected" </if>>在线注册</option>
+							<option value="3" <if condition="$list['laiyuan'] eq 3 ">selected="selected" </if>>个人开发</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cells__title">企业资料（务必完整）</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">企业全称</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入企业全称" value="<?php echo $list['qname'] ?>" name="qname">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">联系地址</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['qaddr'] ?>" placeholder="请输入联系地址" name="qaddr">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">法人姓名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入法人姓名"  value="<?php echo $list['faren'] ?>" name="faren">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">法人手机号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入法人手机号" value="<?php echo $list['farentel'] ?>" name="farentel">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">运营人姓名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入运营人姓名" value="<?php echo $list['yunying'] ?>" name="yunying">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">运营人手机号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入运营人手机号" value="<?php echo $list['yunyingtel'] ?>" name="yunyingtel">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">微盟用户名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入微盟用户名" value="<?php echo $list['weimeng'] ?>" name="weimeng">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="password" placeholder="请输入密码" value="<?php echo $list['weimengpwd'] ?>" name="pwd">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">QQ</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入QQ" name="qq" value="<?php echo $list['qq'] ?>">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">邮箱</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入邮箱" value="<?php echo $list['email'] ?>" name="email">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">微信公众号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" placeholder="请输入微信公众号" value="<?php echo $list['wechat'] ?>" name="wechat">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">公众号密码</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="password" placeholder="请输入公众号密码" value="<?php echo $list['wechatpwd'] ?>" name="wechatpwd">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通状态</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="status">
+						<option value="1" <if condition="$list['status'] eq 1 ">selected="selected" </if>>提单</option>
+							<option value="2" <if condition="$list['status'] eq 2 ">selected="selected" </if>>开通</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通类别</label></div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="leibie">
+						<option value="1" <if condition="$list['leibie'] eq 1 ">selected="selected" </if>>新开</option>
+							<option value="2" <if condition="$list['leibie'] eq 2 ">selected="selected" </if>>版本升级</option>
+							<option value="3" <if condition="$list['leibie'] eq 3 ">selected="selected" </if>>续费</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cells__title">客户是否有特殊需求</div>
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<textarea class="weui-textarea" name="detail" placeholder="请输入客户特殊需求" rows="3"><?php echo $list['detail'] ?></textarea>
+						<div class="weui-textarea-counter"></div>
+					</div>
+				</div>
+			</div>
+			<div class="weui-cells__tips" style="color: #e64340;">
+				资料务必填写准确！ 请在备注内写清需要特别提醒的信息，在代运营栏中标记好周期时间，法人、运营人的姓名电话必须填写。提单：后台信息已经提交，但账号不能使用，时间为提交当天日期；开通：账号方可正常使用，时间正常运行，开通后时间是无法暂停的。
+			</div>
+				<button href="javascript:void(0)" class="weui-btn weui-btn_primary" type="submit" style="margin-top: 30px;margin-bottom:10px;width: 90%;">提交</button>
+		</div>
+		</form>
+		<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Admin/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-article-add").validate({
+		rules:{
+			bianhao:{
+				required:true,
+			},
+			date:{
+				date:true,
+			},
+			money:{
+				number:true, 
+			},
+			realmoney:{
+				number:true, 
+			},
+			shenqingren:{
+				required:true,
+			},
+			banben:{
+				required:true,
+			},
+			nianxian:{
+				required:true,
+			},
+			daiyunyingdate:{
+				required:true,
+			},
+			dept:{
+				required:true,
+			},
+			jingli:{
+				required:true,
+			},
+			laiyuan:{
+				required:true,
+			},
+			qname:{
+				required:true,
+			},
+			qaddr:{
+				required:true,
+			},
+			yunying:{
+				required:true,
+			},
+			yunyingtel:{
+				digits:true,
+			},
+			weimeng:{
+				required:true,
+			},
+			pwd:{
+				required:true,
+			},
+			qq:{
+                digits:true,
+			},
+			email:{
+                email:true,
+			},
+			wechat:{
+				required:true,
+			},
+			wechatpwd:{
+				required:true,
+			},
+			status:{
+				required:true,
+			},
+			leibie:{
+				required:true,
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "__CONTROLLER__/editInfo/",
+				data:$("form").serialize(),
+				dataType: "json",
+				success: function(data){
+						if(data.code == 1){
+						layer.msg(data.msg,{icon:1,time:1000},function(){
+								window.location.href="__CONTROLLER__/showList";
+						});
+					}else if(data.code == 0){
+						layer.msg(data.msg,{icon:2,time:1000});
+					}
+				}
+			});	
+			return false;
+		}
+	});
+});
+</script>
+	</body>
+
+</html>

@@ -1,0 +1,247 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class IndexController extends Controller {
+   //初始化，判断用户是否登录
+	public function _initialize() {
+        if ($_SESSION['uname'] == NULL) {
+            $this->success('请先登陆', U('Manager/login'));
+            exit();
+        }
+     } 
+      //显示后台首页
+	public function index(){
+	   $this->display();
+	}
+	//显示列表
+	public function showList(){
+		$model = M('qiye');
+		$count = $model->count();
+        $Page = new \Think\Page($count,10);
+        $Page -> setConfig('prev','上一页');
+		$Page -> setConfig('next','下一页');
+		$Page -> setConfig('first','首页');
+		$Page -> setConfig('last','末页');
+		$Page -> lastSuffix = false;	//将末页从数字的显示方式切换成汉字提示
+        $show = $Page->show();
+        if(session('utype' != 1)){
+           $list = $model->alias('qiye')->join('tp_qiyeren ren on qiye.id=ren.qid')->join('tp_weimeng wei on wei.qid=qiye.id')->join('tp_user on tp_user.id=qiye.uid')->where(array('tp_user.id'=> session('uid')))->order('qiye.id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        }else{
+           $list = $model->alias('qiye')->join('tp_qiyeren ren on qiye.id=ren.qid')->join('tp_weimeng wei on wei.qid=qiye.id')->join('tp_user on tp_user.id=qiye.uid')->order('qiye.id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        }
+		$this->assign('info', $list);
+		$this->assign('page', $show);
+		$this->display();
+	}
+	//添加信息
+	public function addInfo(){
+		if(IS_AJAX){
+			$post = I('post.');
+			!empty($post['qname']) ? $name = trim($post['qname']) : $err = '请填写企业名称';
+			!empty($post['qaddr']) ? $qaddr = trim($post['qaddr']) : $err = '请填写企业地址';
+			!empty($post['yunying']) ? $yunying = trim($post['yunying']) : $err = '请填写运营人姓名';
+			!empty($post['yunyingtel']) ? $yunyingtel = trim($post['yunyingtel']) : $err = '请填写运营人手机号';
+			!empty($post['weimeng']) ? $weimeng = trim($post['weimeng']) : $err = '请填写微盟用户名';
+            !empty($post['pwd']) ? $pwd = trim($post['pwd']) : $err = '请填写微盟密码';
+            !empty($post['qq']) ? $qq = trim($post['qq']) : $err = '请填写qq号码';
+            !empty($post['wechat']) ? $wechat = trim($post['wechat']) : $err = '请填写微信公众号';
+            !empty($post['wechatpwd']) ? $wechatpwd = trim($post['wechatpwd']) : $err = '请填写微信密码';
+            !empty($post['leibie']) ? $leibie = trim($post['leibie']) : $err = '请填写开通类别';
+            !empty($post['bianhao']) ? $bianhao = trim($post['bianhao']) : $err = '请填写合同编号';
+            !empty($post['banben']) ? $banben = trim($post['banben']) : $err = '请选择开通版本';
+            !empty($post['shenqingren']) ? $shenqingren = trim($post['shenqingren']) : $err = '请填写合同编号';
+            if($err){
+            	echo json_encode(array('code' => 0,'msg' => $err));exit;
+            }
+			$data = array(
+                  'uid' => session('uid'), 
+                  'qname' => $name, 
+                  'qaddr' => $qaddr, 
+                  'faren' => !empty($post['faren']) ? $post['faren'] : '', 
+                  'yunying' => $yunying,
+                  'yunyingtel' => $yunyingtel,
+                  'farentel' => !empty($post['farentel']) ? $post['farentel'] : '',
+                  'weimeng' => $weimeng,
+                  'weimengpwd' => $pwd,
+                  'qq' => $qq,
+                  'email' => !empty($post['email']) ? $post['email'] : '',
+                  'wechat' => $wechat,
+                  'wechatpwd' => $wechatpwd,
+                  'status' => !empty($post['status']) ? $post['status'] : '1',
+                  'leibie' => $leibie,
+                  'detail' => !empty($post['detail']) ? $post['detail'] : ''
+				);
+			  //添加内容到企业表
+			  $id = M('qiye')->add($data);
+			  if($id){
+			  	$rst = $this->logo_deal($id);
+			  	if($rst){
+			  		echo json_encode(array('code' => 1,'msg' => '活动添加成功','id'=>$id));exit;
+			  	}
+			  }else{
+			  	echo json_encode(array('code' => 0,'msg' => '添加失败','id' => $id));exit;
+			  }
+		}else{
+			$this->display();
+		}
+		
+	}
+	//编辑活动
+	public function editAction(){
+		$aid = I('get.aid');
+		if(IS_POST){
+			$post = I('post.');
+			!empty($post['articletitle']) ? $articletitle = trim($post['articletitle']) : $err = '请填写活动标题';
+			!empty($post['abstract']) ? $abstract = trim($post['abstract']) : $err = '请填写活动内容';
+            !empty($post['articlesort']) ? $articlesort = trim($post['articlesort']) : $err = '请选择最大参与人数';
+            if($err){
+            	echo json_encode(array('code' => 0,'msg' => $err));exit;
+            }
+            !empty($post['startTime']) ? $stime = strtotime($post['startTime']) : $stime = time();
+            !empty($post['endTime']) ? $etime = strtotime($post['endTime']) : $etime = time();
+			$data = array(
+				    'id' => $aid,
+                    'title' => $post['articletitle'],
+                    'content' => $post['abstract'],
+                    'money' => $post['articletype'],
+                    'stime' => $stime,
+                    'etime' => $etime,
+                    'maxperson' => $post['articlesort'],
+                    'code' => $post['articlecolumn'],
+				);
+			$rst = M('action')->save($data);
+			$rst1 = $this->logo_deal($aid,$post);
+			if($rst && $rst1){
+				echo json_encode(array('code' => 1,'msg' => '活动编辑成功'));exit;
+			}else{
+				echo json_encode(array('code' => 1,'msg' => '活动编辑成功'));exit;
+			}
+		}else{
+			$actioninfo = M('action')->where(array('id' => $aid))->find();
+			$this->assign('actioninfo', $actioninfo);
+			$this->display();
+		}
+		
+	}
+	//开启活动
+	public function startAction(){
+		   $aid = $_GET['aid'];
+           $actions = M('action')->select();
+           // foreach ($actions as $key => $value) {
+           // 	 if($value['status'] == 1){
+           // 	 	$data = array(
+           //        'code' => 0,
+           //        'msg' => '请先关闭正在开启的活动'
+           // 	 		);
+           // 	 	echo json_encode($data);exit;
+           // 	 }
+           // }
+           $ac = array(
+               'id' => $aid,
+               'status' => '1'
+           	);
+           $rst = M('action')->save($ac);
+           if($rst){
+           	echo json_encode(array('code' => 1));exit;
+           }
+	}
+	//关闭活动
+	public function endAction(){
+		$aid = I('get.aid');
+		$rst = M('action')->where(array('id' => $aid, 'status' => '1'))->find();
+		if($rst){
+			$data = array(
+                  'id' => $aid,
+                  'status' => '0'
+				);
+			$rst = M('action')->save($data);
+			if($rst){
+				echo json_encode(array('code' => 1));exit;
+			}else{
+				echo json_encode(array('code' => 0));exit;
+			}
+		}
+	}
+	//删除活动
+	public function delAction(){
+		$aid = I('get.aid');
+		if(is_numeric($aid)){
+			//删除单个活动
+			M('cinfo')->where(array('aid' => $aid))->delete();
+			$logo_info = M('action')->where(array('id' => $aid))->find();
+		    unlink($logo_info['pic']);
+	        unlink($logo_info['smallpic']);
+		}else{
+			//删除多个活动
+			$where['aid'] = array('in', $aid);
+			M('cinfo')->where($where)->delete();
+			$wh['id'] = array('in', $aid); 
+			$logo_infos = M('action')->where($wh)->select();
+			foreach ($logo_infos as $key => $value) {
+				unlink($value['pic']);
+	            unlink($value['smallpic']);
+			}
+		}
+		$rst = M('action')->delete($aid);
+		if($rst){
+			echo json_encode(array('code' => 1));exit;
+		}
+	}
+
+	//参数：$data是引用传递,在内部对其进行修改，在外边仍然可以访问到
+    private function logo_deal($id,$post){
+        //判断有进行正常的附加上传
+        if($_FILES['pic']['error']===0){
+            //判断是否是“更新”商品的logo处理
+            //并删除旧的logo图片
+            if(!empty($data['aid'])){
+                $logo_info = D('action')->
+                    field('pic,smallpic')->
+                    find($data['aid']);
+                unlink($logo_info['pic']);
+                unlink($logo_info['smallpic']);
+            }
+
+            //A.大图logo处理
+            //tp框架现成功能类实现附件上传(Think\Upload.class.php)
+            //保存附件图片的根目录
+            $cfg = array(
+                'rootPath'      =>  './Public/Upload/', //保存根路径
+                'exts'          =>  array('jpg','jpeg','png','gif'), //允许上传的文件后缀
+            );
+            $up = new \Think\Upload($cfg);
+
+            //通过uploadOne的返回值可以获得附件上传到服务器的情况信息
+            //例如：存储目录、存储名字等
+            $z = $up -> uploadOne($_FILES['pic']);
+
+            //整理附件的路径 和 名字信息，存储到数据库指定字段里边
+            $biglogoname = $up->rootPath.$z['savepath'].$z['savename'];
+            $data['pic'] = $biglogoname;//存储到数据库
+            
+            //B.缩略图logo处理，具体通过\Think\Image.class.php实现
+            $im = new \Think\Image();
+            $im -> open($biglogoname); //找到大图
+            $im -> thumb(750,440,1);//制作缩略图
+            //存储制作好的缩略图(事先声明好缩略图的路径名)
+            //./Public/Upload/2016-03-29/56f9e9c66664f.jpg
+            //./Public/Upload/2016-03-29/s_56f9e9c66664f.jpg
+            $smalllogoname = $up->rootPath.$z['savepath']."s_".$z['savename'];
+            $im -> save($smalllogoname);
+            $data['smallpic'] = $smalllogoname; //存储到数据库
+            $data['id'] = $id;
+            return M('action')->save($data);exit;
+        }else{
+        	if($post){
+        		$data['smallpic'] = $post['smallpic'];
+        	    $data['pic'] = $post['pic'];
+        	    $data['id'] = $id;
+        	    return M('action')->save($data);exit;
+        	}else{
+        		echo json_encode(array('code' => 0,'msg' => '请添加活动图片'));exit;
+        	}
+        	
+        }
+    }
+
+}

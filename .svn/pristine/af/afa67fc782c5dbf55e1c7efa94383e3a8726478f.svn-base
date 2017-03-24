@@ -1,0 +1,277 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/html5shiv.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>订单管理-新增订单</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+			<form class="form form-horizontal" id="form-article-add" method="post" action="__CONTROLLER__/addInfo" onsubmit="return false">
+				<div class="panel-body f-16">
+					产品开通申请表：
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>合同编号：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="" name="bianhao">
+					</div>
+				</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>申请日期：</label>
+			<!-- <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" name="name"style="width:180px;"> -->
+			<div class="formControls col-xs-8 col-sm-9">
+			<input  class="input-text Wdate" type="text"   onfocus="WdatePicker({skin:'whyGreen',Date:'%y-%M-%d %H:%i:%s'})" name="date" value="" style="width:180px;"/>
+			</div>
+		</div>
+
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>合同金额：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="money" id="" placeholder="单位：人民币元" value="" class="input-text" style=" width:35%">
+						<span class="c-red">*</span>实收金额：
+						<input type="text" name="realmoney" id="" placeholder="单位：人民币元" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>申请人：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="shenqingren" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>申请版本：
+						<span class="select-box"style=" width:35%">
+						<select name="banben" class="select" >
+						<foreach name="banben" item="v" >
+							<option value="<?php echo $v['name'] ?>"><?php echo $v['name'] ?></option>
+						 </foreach>
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开通年限：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="nianxian" id="" value="" class="input-text" style=" width:35%">
+						<span class="c-red">*</span>代运营周期：
+						<input type="text" name="daiyunyingdate" id=""  value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+			<!-- 	<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>起始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal"> -->
+				<!--  <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'datemax\')||\'2020-10-01\'}',minDate:'#F{\'%y-%M-%d\'}',autoPickDate:true})" id="datemin" name="startTime" class="input-text Wdate valid" style="width:200px;"> -->
+				<!--  <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'datemin\')||\'%y-%M-%d\'}',autoPickDate:true})" class="input-text Wdate valid" style="width:200px;" id="datemax" name="endTime"> -->
+			<!-- </div> -->
+	<!-- 	</div> -->
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属部门：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+					    <span class="select-box"style=" width:35%">
+						<select name="dept" class="select">
+						<foreach name="dept" item="v" >
+							<option value="<?php echo $v['bumenming'] ?>"><?php echo $v['bumenming'] ?></option>
+						</foreach>
+						</select>
+						</span>
+                       <span class="c-red">*</span>部门经理：
+						<span class="select-box"style=" width:35%">
+						<select name="jingli" class="select" >
+						<foreach name="dept" item="v" >
+							<option value="<?php echo $v['jingli'] ?>"><?php echo $v['jingli'] ?></option>
+						</foreach>
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>客户来源：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<span class="select-box">
+						<select name="laiyuan" class="select">
+							<option value="1">在线咨询</option>
+							<option value="2">在线注册</option>
+							<option value="3">个人开发</option>
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="panel-body f-16">
+					企业资料（务必完整）：
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>企业名称：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="" name="qname">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系地址：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="" name="qaddr">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>法人姓名：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="faren" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>法人手机号：
+						<input type="number" name="farentel" id="" placeholder="" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>运营人姓名：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="yunying" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>运营人手机号：
+						<input type="number" name="yunyingtel" id="" placeholder="" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>微盟用户名：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="weimeng" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>密码：
+						<input type="text" name="pwd" id="" placeholder="" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>QQ：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="qq" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>邮箱：
+						<input type="text" name="email" id="" placeholder="" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>微信公众号：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" name="wechat" id="" placeholder="" value="" class="input-text" style=" width:35%"> &nbsp;
+						<span class="c-red">*</span>公众号密码：
+						<input type="text" name="wechatpwd" id="" placeholder="" value="" class="input-text" style=" width:35%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开通状态：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<span class="select-box">
+						<select name="status" class="select">
+							<option value="1">提单</option>
+							<option value="2">开通</option>
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开通类别：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<span class="select-box">
+						<select name="leibie" class="select">
+							<option value="1">新开</option>
+							<option value="2">版本升级</option>
+							<option value="3">续费</option>
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>客户是否有特殊要求（备注）：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<textarea name="detail" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"></textarea>
+					</div>
+				</div>
+				<div class="panel-body f-12 c-danger">
+					资料务必填写准确！ 请在备注内写清需要特别提醒的信息，在代运营栏中标记好周期时间，法人、运营人的姓名电话必须填写。提单：后台信息已经提交，但账号不能使用，时间为提交当天日期；开通：账号方可正常使用，时间正常运行，开通后时间是无法暂停的。
+				</div>
+				<div class="row cl">
+					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+						<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>保存并提交</button>
+						<!-- <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button> -->
+					</div>
+				</div>
+			</form>
+		</article>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__PUBLIC__/Home/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/Home/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/lib/webuploader/0.1.5/webuploader.min.js"></script> <!--
+<script type="text/javascript" src="__PUBLIC__/Home/lib/ueditor/1.4.3/ueditor.config.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>--> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-article-add").validate({
+		rules:{
+			articletitle:{
+				required:true,
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "__CONTROLLER__/addInfo/id/<?php echo $id ?>",
+				data:$("form").serialize(),
+				dataType: "json",
+				success: function(data){
+						if(data.code == 1){
+						layer.msg(data.msg,{icon:1,time:1000},function(){
+							if(data.id == 1){
+								window.location.href="__CONTROLLER__/showList";
+							}else{
+								window.parent.location.reload();
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.$('.btn-refresh').click();
+								parent.layer.close(index);	
+							}
+						});
+					}else if(data.code == 0){
+						layer.msg(data.msg,{icon:2,time:1000});
+					}
+				}
+			});	
+			return false;
+		}
+	});
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

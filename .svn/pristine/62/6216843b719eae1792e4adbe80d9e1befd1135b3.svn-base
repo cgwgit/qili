@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>添加订单</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery-weui.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/lib/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/public.css">
+	</head>
+
+	<body>
+		<div class="weui-cells__title">产品开通申请表</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">合同编号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['bianhao'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label for="" class="weui-label">申请日期</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="date" value="<?php echo date('Y-m-d', $list['date']) ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">合同金额</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['money'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">实收金额</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['realmomey'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['shenqingren'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">申请版本</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['banben'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通年限</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['nianxian'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">代运营周期</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['daiyunyingdate'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">所属部门</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['dept'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">部门经理</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['jingli'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">客户来源</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text"<if condition="$list['laiyuan'] eq 1 ">
+                            value="在线咨询"<elseif condition="$list['laiyuan'] eq 2" />
+                            value="在线注册"<else />
+                            value="个人开发"
+                            </if>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cells__title">企业资料（务必完整）</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">企业全称</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['qname'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">联系地址</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['qaddr'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">法人姓名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['faren'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">法人手机号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['farentel'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">运营人姓名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['yunying'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">运营人手机号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['yunyingtel'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">微盟用户名</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['weimeng'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['weimengpwd'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">QQ</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['qq'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">邮箱</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['email'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">微信公众号</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['wechat'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">公众号密码</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" value="<?php echo $list['wechatpwd'] ?>" readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通状态</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" <if condition="$list['status'] eq 1" >
+                          value="提单"<else />
+                          value="开通"
+                          </if> readonly="true">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">开通类别</label></div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="text" <if condition="$list['leibie'] eq 1" >
+                          value="新开"<elseif condition="$list['leibie'] eq 2"/>
+                          value="版本升级"<else />
+                          value="续费"
+                          </if>readonly="true">
+				</div>
+			</div>
+			<div class="weui-cells__title">客户特殊需求</div>
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<textarea class="weui-textarea" placeholder="" rows="3"><?php echo $list['detail'] ?></textarea>
+						<div class="weui-textarea-counter"></div>
+					</div>
+				</div>
+			</div>
+			<a href="javascript:history.back()" class="weui-btn weui-btn_primary" style="margin-top: 30px;margin-bottom:10px;width: 90%;">返回</a>
+		</div>
+	</body>
+
+</html>

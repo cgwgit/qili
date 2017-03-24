@@ -1,0 +1,95 @@
+
+
+/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+th, td /* table elements 表格元素 */ {
+  margin: 0;
+  padding: 0;
+}
+body{background: #fff;}
+/** 设置默认字体 **/
+body,
+button, input, select, textarea /* for ie */ {
+  font: 12px/1.5 Microsoft YaHei, Helvitica, Verdana, Tohoma, Arial, san-serif;
+}
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+code, kbd, pre, samp { font-family: Microsoft YaHei, Helvitica, Verdana, Tohoma, Arial, san-serif; } /* 统一等宽字体 */
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+/** 重置列表元素 **/
+ul, ol { list-style: none; }
+
+input,button,select,textarea{outline:none}
+
+/** 重置文本格式元素 **/
+a { text-decoration: none; }
+
+.clear{clear: both;}
+.clearfix:after {
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+/** 重置表单元素 **/
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: 0; } /* img 搭车：让链接里的 img 无边框 */
+button, input, select, textarea { font-size: 100%; } /* 使得表单元素在 ie 下能继承字体大小 */
+/* 注：optgroup 无法扶正 */
+
+/** 重置表格元素 **/
+table { border-collapse: collapse; border-spacing: 0; }
+.min-width{
+	min-width: 320px;
+	max-width: 640px;
+	margin: 0 auto;
+	width: 100%;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.pos-r{
+	position: relative;
+}
+.pos-a{
+	position: absolute;
+}
+.mt-5{margin-top:5px}.mt-10{margin-top:10px}.mt-15{margin-top:15px}.mt-20{margin-top:20px}.mt-25{margin-top:25px}.mt-30{margin-top:30px}.mt-35{margin-top:35px}.mt-40{margin-top:40px}.mt-50{margin-top:50px}
+.mb-5{margin-bottom:5px}.mb-10{margin-bottom:10px}.mb-15{margin-bottom:15px}.mb-20{margin-bottom:20px}.mb-30{margin-bottom:30px}.mb-40{margin-bottom:40px}.mb-50{margin-bottom:50px}
+.ml-5{margin-left:5px}.ml-10{margin-left:10px}.ml-15{margin-left:15px}.ml-20{margin-left:20px}.ml-30{margin-left:30px}.ml-40{margin-left:40px}.ml-50{margin-left:50px}
+.mr-5{margin-right:5px}.mr-10{margin-right:10px}.mr-15{margin-right:15px}.mr-20{margin-right:20px}.mr-30{margin-right:30px}.mr-40{margin-right:40px}.mr-50{margin-right:50px}
+/*3.1.9 内填充
+	Name:			style_padding
+	Example:		class="pt-5|pt-10|……"
+	Explain:		.pt表示上填充|.pb表示下填充|.pl表示左填充|.pr表示右填充
+*/
+.pt-5{padding-top:5px}.pt-10{padding-top:10px}.pt-20{padding-top:20px}
+.pb-5{padding-bottom:5px}.pb-10{padding-bottom:10px}.pb-20{padding-bottom:20px}
+.pl-5{padding-left:5px}.pl-10{padding-left:10px}.pl-20{padding-left:20px}
+.pr-5{padding-right:5px}.pr-10{padding-right:10px}.pr-20{padding-right:20px}
+.pd-5{padding:5px}.pd-10{padding:10px}.pd-15{padding:15px}.pd-20{padding:20px}.pd-30{padding:30px}.pd-40{padding:40px}
+/*3.1.10 边框，css3圆角
+	Name:			style-border
+	Example:		class="bk_gray radius"
+	Explain:		.bk_gray 边框|radius 圆角|round 椭圆 | circle 圆形
+*/
+.bk-gray{border:solid 1px #eee}
+.radius{border-radius:4px; overflow:hidden;}
+
+
+.fl{
+	float: left;
+}    
+.fr{
+	float: right;
+}              

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>启力订单管理系统个人中心</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery-weui.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/lib/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/public.css">
+	</head>
+
+	<body style="background: #f8f8f8;">
+		<div class="qlmember-top">
+			<div class="weui-panel weui-panel_access">
+				<div class="weui-panel__bd">
+					<div class="weui-media-box weui-media-box_appmsg">
+						<div class="weui-media-box__hd">
+							<img class="weui-media-box__thumb" src="__PUBLIC__/Admin/images/default.png">
+						</div>
+						<div class="weui-media-box__bd">
+							<h4 class="weui-media-box__title"><?php echo session('uname') ?></h4>
+							<p class="weui-media-box__desc">订单总数：<?php echo $count ?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells">
+			<a class="weui-cell weui-cell_access" href="__CONTROLLER__/showList">
+				<div class="weui-cell__hd"><img src="__PUBLIC__/Admin/images/i_order_lists.png" width="20px"></div>
+				<div class="weui-cell__bd">
+					<p>订单列表</p>
+				</div>
+				<div class="weui-cell__ft">
+				</div>
+			</a>
+			<a class="weui-cell weui-cell_access" href="__CONTROLLER__/addInfo">
+				<div class="weui-cell__hd"><img src="__PUBLIC__/Admin/images/i_add_order.png" width="20px"></div>
+				<div class="weui-cell__bd">
+					<p>添加订单</p>
+				</div>
+				<div class="weui-cell__ft">
+				</div>
+			</a>
+			<a class="weui-cell weui-cell_access" href="__MODULE__/Manager/loginout">
+				<div class="weui-cell__hd"><img src="__PUBLIC__/Admin/images/i_set.png" width="20px"></div>
+				<div class="weui-cell__bd">
+					<p>退出</p>
+				</div>
+				<div class="weui-cell__ft">
+				</div>
+			</a>
+		</div>
+		<script src="__PUBLIC__/Admin/lib/jquery-2.1.4.js"></script>
+	</body>
+
+</html>

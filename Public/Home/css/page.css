@@ -1,0 +1,45 @@
+.page {
+	margin: 10px auto;
+    width: 100%;
+    text-align: right;
+}
+.page a{
+	margin: 0 5px;
+	color: #333;
+    border: 1px solid #ddd;
+    display: inline-block;
+    padding: 0 12px;
+    height: 26px;
+    line-height: 26px;
+	text-decoration: none;
+	text-underline: none;
+}
+.page span {
+    color: #333;
+    margin: 0 5px;
+    height: 26px;
+    line-height: 26px;
+}
+.page a.cur{
+	background-color: #6fbef7;
+	color: #fff;
+	border: 1px solid #6fbef7;
+	cursor: default;
+}
+.page .pn{
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    width: 40px;
+    cursor: text;
+}
+.page .sure{
+    border: 1px solid #ddd;
+    display: inline-block;
+    padding: 0 12px;
+    height: 26px;
+    line-height: 26px;
+    background-color: #fff;
+    cursor: pointer;
+}
